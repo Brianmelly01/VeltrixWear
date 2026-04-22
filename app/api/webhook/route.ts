@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { notifyMellyOS } from "@/lib/mellyos";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2024-11-20.acacia",
+  apiVersion: "2024-06-20",
 });
 
 export async function POST(req: NextRequest) {
