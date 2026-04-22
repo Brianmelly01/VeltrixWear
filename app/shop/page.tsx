@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { SlidersHorizontal, X } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
@@ -8,7 +8,7 @@ import { products, categories, getProductsByCategory } from "@/lib/products";
 import type { Product } from "@/lib/products";
 import clsx from "clsx";
 
-export default function ShopPage() {
+function ShopContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "All";
   const [activeCategory, setActiveCategory] = useState(initialCategory);
@@ -114,5 +114,17 @@ export default function ShopPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ShopPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-vx-black pt-32 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-vx-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <ShopContent />
+    </Suspense>
   );
 }
